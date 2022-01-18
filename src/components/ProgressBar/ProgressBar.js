@@ -7,7 +7,6 @@ import VisuallyHidden from '../VisuallyHidden';
 
 const ProgressBase = styled.div({
   width: '100%',
-  maxWidth: 370,
   backgroundColor: COLORS.transparentGray15,
   boxShadow: 'inset 0px 2px 4px rgba(128, 128, 128, 0.35)',
   borderRadius: 'var(--borderRadius)',
@@ -20,13 +19,18 @@ const ProgressBaseBar = styled.div({
   width: 'var(--progress)',
   height: '100%',
   backgroundColor: COLORS.primary,
-  borderRadius: '4px var(--lastRadius) var(--lastRadius) 4px',
+});
+
+const ProgressBarWrapper = styled.div({
+  overflow: 'hidden',
+  height: '100%',
+  borderRadius: 4,
 });
 
 const SIZES = {
   large: {
     '--borderRadius': 8 + 'px',
-    '--height': 16 + 'px',
+    '--height': 24 + 'px',
     '--padding': 4 + 'px',
   },
   medium: {
@@ -51,12 +55,13 @@ const ProgressBar = ({ value, size }) => {
       style={SIZES[size]}
     >
       <VisuallyHidden>{value}</VisuallyHidden>
-      <ProgressBaseBar
-        style={{
-          '--progress': value + '%',
-          '--lastRadius': Math.max(0, value - 99) * 4 + 'px',
-        }}
-      />
+      <ProgressBarWrapper>
+        <ProgressBaseBar
+          style={{
+            '--progress': value + '%',
+          }}
+        />
+      </ProgressBarWrapper>
     </ProgressBase>
   );
 };
